@@ -1,1 +1,1 @@
-# WED2-Miniprojekt
+#Let's create something beautiful!
