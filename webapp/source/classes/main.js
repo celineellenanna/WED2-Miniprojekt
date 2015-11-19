@@ -19,3 +19,4 @@ require(['frameworks/angular', 'app/modules/lafete'], function (Angular, Lafete)
 	})
 
 });
+

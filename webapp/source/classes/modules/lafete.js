@@ -1,7 +1,10 @@
-define(['frameworks/angular'], function ( Angular ) {
-	// Create new empty app/module named 'lafete'
-	var Lafete = Angular.module('lafete', []);
+define(['frameworks/angular', 'app/controllers/eventListController'],
+function (Angular, EventListController) {
+	'use strict';
 
-	// export module to use it in other classes
+	var Lafete = Angular.module('lafete', []);
+	Lafete.controller('EventListController', EventListController);
+	EventListController.$inject = ['$scope'];
+
 	return Lafete;
 });
