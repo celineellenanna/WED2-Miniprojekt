@@ -1,10 +1,10 @@
-<nav>
+<!--<nav>
     &larr; <a href="#/">Events</a>
-</nav>
+</nav>-->
 
 <h2>{{event.name}}</h2>
 
-<ul class="pane">
+<ul class="eventdetails">
     <p>{{event.description}}</p>
     <p data-ng-if="event.maximalAmoutOfGuests">
         <i>Maximal amount of guests:</i>
@@ -17,7 +17,7 @@
     <h3 data-ng-if="event.contributionsDescription">Event contribution description</h3>
     <p data-ng-if="event.contributionsDescription">{{event.contributionsDescription}}</p>
 
-    <h2>Location</h2>
+    <h3>Location</h3>
         <p>
             <i>{{event.location.name}}</i><br />
             {{event.location.street}}<br />
