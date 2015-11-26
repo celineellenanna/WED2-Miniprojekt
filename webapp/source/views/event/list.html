@@ -1,0 +1,11 @@
+<a class="button add" href="#/events/new">&#10133;</a>
+<h2>Events</h2>
+<ul>
+    <li data-ng-repeat="event in events">
+        <a data-ng-href="#/events/{{event.id}}">
+            <strong>{{event.name}}</strong><br />
+            {{event.times.begin | date:"dd.MM.yy HH:mm"}} - {{event.times.end | date:"dd.MM.yy HH:mm"}}<br />
+            {{event.location.name}}, {{event.location.street}}, {{event.location.plz}} {{event.location.city}}
+        </a>
+    </li>
+</ul>
