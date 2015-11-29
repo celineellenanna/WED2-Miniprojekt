@@ -43,7 +43,23 @@ define(['app/model/event'], function(Event) {
                 })
                 .error(errorCallback);
         };
+
+        /**
+         * Update event
+         * @param Event event
+         */
+        this.update = function(id, event, successCallback, errorCallback ){
+            $http.post( Configuration.urls.update.replace('{eventId}',id), event)
+            .success(function(){
+                successCallback(Event.createFromDTO(eventDTO));
+            }).
+            error(function(){
+                errorCallback();
+            })
+        };
     };
+
+    EventRepository.$inject = ['$http', 'Configuration'];
 
     return EventRepository;
 });

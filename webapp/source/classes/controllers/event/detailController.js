@@ -11,6 +11,7 @@ define([], function() {
             function() {}
         );
     }
+    EventDetailController.$inject = ['$scope', '$routeParams', 'EventRepository'];
 
     return EventDetailController;
 });

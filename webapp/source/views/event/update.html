@@ -42,29 +42,29 @@
             <div class="col-xs-4"><input type="date" class="form-control"  data-ng-model="event.times.begin.date" placeholder="begin, e.g. 1990-12-30" required />
             </div>
             <div class="col-xs-3"><select class="hours form-control" data-ng-model="event.times.begin.time.hours"
-                    data-ng-init="event.times.begin.time.hours = hours[12]"
-                    data-ng-options="hour for hour in hours"></select>
+                                          data-ng-init="event.times.begin.time.hours = hours[12]"
+                                          data-ng-options="hour for hour in hours"></select>
             </div>
             <div class="col-xs-3"><select class="minutes form-control" data-ng-model="event.times.begin.time.minutes"
-                    data-ng-init="event.times.begin.time.minutes = minutes[0]"
-                    data-ng-options="minute for minute in minutes"></select>
+                                          data-ng-init="event.times.begin.time.minutes = minutes[0]"
+                                          data-ng-options="minute for minute in minutes"></select>
             </div>
         </div>
         <div class="form-group inline row">
             <div class="col-xs-4"><input class="form-control" data-ng-model="event.times.end.date" placeholder="end, e.g. 1990-12-31"  type="date" required />
             </div>
             <div class="col-xs-3"><select class="hours form-control" data-ng-model="event.times.end.time.hours"
-                    data-ng-init="event.times.end.time.hours = hours[13]"
-                    data-ng-options="hour for hour in hours"></select>
+                                          data-ng-init="event.times.end.time.hours = hours[13]"
+                                          data-ng-options="hour for hour in hours"></select>
             </div>
             <div class="col-xs-3"><select class="minutes form-control" data-ng-model="event.times.end.time.minutes"
-                    data-ng-init="event.times.end.time.minutes = minutes[0]"
-                    data-ng-options="minute for minute in minutes"></select>
+                                          data-ng-init="event.times.end.time.minutes = minutes[0]"
+                                          data-ng-options="minute for minute in minutes"></select>
             </div>
         </div>
     </div>
 
     <div class="form-group">
-        <input type="submit" data-ng-click="add(event)" value="Save" />
+        <input type="submit" data-ng-click="update(event)" value="Save" />
     </div>
 </form>

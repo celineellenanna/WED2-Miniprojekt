@@ -1,13 +1,17 @@
+/**
+ * Created by Céline on 26.11.2015.
+ */
 define(['app/model/event'], function(Event) {
     'use strict';
 
-    var NewEventController = function($scope, $location, EventRepository) {
+    var EventUpdateController = function($scope, $location, EventRepository){
+
         this.scope = $scope;
         this.scope.hours = this.createNumberSerie(0,1,23,2);
         this.scope.minutes = this.createNumberSerie(0,5,59,2);
         this.scope.event = new Event();
 
-        this.scope.add = function(newEvent) {
+        this.scope.update = function(newEvent) {
             newEvent.times.begin = new Date(
                 newEvent.times.begin.date.getFullYear(),
                 newEvent.times.begin.date.getMonth(),
@@ -25,7 +29,7 @@ define(['app/model/event'], function(Event) {
                 0
             );
 
-            EventRepository.add(
+            EventRepository.update(
                 newEvent,
                 function(event) {
                     $location.path('/events/'+event.id);
@@ -34,17 +38,9 @@ define(['app/model/event'], function(Event) {
             );
         };
     };
-    NewEventController.prototype.createNumberSerie = function(start, step, end, digits) {
-        digits = digits || 3;
-        var serie = [];
-        for(var i = start; i <= end; i+=step) {
-            var digit = (1e10 + i + "").slice(-digits);
-            serie.push(digit);
-        }
-        return serie;
-    };
 
-    NewEventController.$inject = ['$scope', '$location', 'EventRepository'];
+    EventUpdateController.$inject = [];
 
-    return NewEventController;
+    return EventUpdateController;
+
 });
