@@ -2,7 +2,7 @@
     &larr; <a href="#/">Events</a>
 </nav>-->
 
-<h2>{{event.name}}</h2>
+<h2 class="eventtitle">{{event.name}}</h2>
 
 <ul class="eventdetails">
     <p>{{event.description}}</p>
@@ -29,6 +29,21 @@
 
         <h3 data-ng-if="event.guests && event.guests.length > 0">Guests</h3>
         <p data-ng-if="event.guests && event.guests.length > 0">{{ event.guests.length }}</p>
-        </ul>
+    <form action="{{ '#/events/update/' + event.id }}" method="get">
+        <button class="btn btn-default" type="submit">Edit Event</button>
+    </form>
+    <h3>All Guests:</h3>
+    <div class="guestlist" data-ng-repeat="guest in event.guests">
+        <p>Name: {{ guest.name }}</p>
+        <p>Nimmt mit: {{ guest.contribution }}</p>
+        <p>Kommentar: {{ guest.comment }}</p>
+        <p>Komme nicht: {{ guest.canceled }}</p>
+        <form action="{{ '#/events/' + event.id + '/guest/' +  guest.id }}" method="get">
+            <button class="btn btn-sm btn-default" type="submit">Update Guest</button>
+        </form>
+    </div>
+</ul>
 
-    <button href="">Add Guest</button>
+    <form action="{{ '#/events/' + event.id + '/guest/new' }}" method="get">
+        <button class="btn btn-default" type="submit">Add Guest</button>
+    </form>

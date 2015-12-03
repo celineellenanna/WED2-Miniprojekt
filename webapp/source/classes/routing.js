@@ -1,5 +1,5 @@
-define(['app/controllers/event/listController', 'app/controllers/event/detailController', 'app/controllers/event/newController', 'app/controllers/event/updateController'],
-    function( EventListController, EventDetailController, NewEventController, EventUpdateController) {
+define(['app/controllers/event/listController', 'app/controllers/event/detailController', 'app/controllers/event/newController', 'app/controllers/event/updateController', 'app/controllers/event/newGuestController','app/controllers/event/updateGuestController'],
+    function( EventListController, EventDetailController, NewEventController, EventUpdateController, NewGuestController, GuestUpdateController) {
     'use strict';
 
     var config = function($routeProvider) {
@@ -18,6 +18,14 @@ define(['app/controllers/event/listController', 'app/controllers/event/detailCon
             .when('/events/update/:eventId', {
                 controller: EventUpdateController,
                 templateUrl: '/views/event/update.html'
+            })
+            .when('/events/:eventId/guest/new', {
+                controller: NewGuestController,
+                templateUrl: '/views/event/editGuest.html'
+            })
+            .when('/events/:eventId/guest/:guestId', {
+                controller: GuestUpdateController,
+                templateUrl: '/views/event/updateGuest.html'
             })
             .otherwise({
                 redirectTo: '/list'

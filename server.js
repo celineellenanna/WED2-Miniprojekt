@@ -19,7 +19,7 @@ var eventId = 0;
 var guestId = 0;
 var events = [];
 
-function createEvent(id, name, description, targetGroup, contributionsDescription, location, times){
+function createEvent(id, name, description, targetGroup, contributionsDescription, location, times, maximalAmoutOfGuests){
     if(name) {
         var event = {
             id: (id) ? id : ++eventId,
@@ -29,6 +29,7 @@ function createEvent(id, name, description, targetGroup, contributionsDescriptio
             contributionsDescription: contributionsDescription,
             location:location,
             times : times,
+            maximalAmoutOfGuests : maximalAmoutOfGuests,
             guests:[]
         };
         events.push(event);
@@ -85,7 +86,7 @@ var event1 = createEvent(
     {
         begin: new Date('2015-11-15T19:00:00'),
         end: new Date('2011-11-16T03:00:00')
-    }
+    },20
 );
 createGuest(event1, null, "Michael", "Schoggi-Kuchen", "Bin sicher zu früh" );
 createGuest(event1, null, "Hans", "Hotdog-Cake", null );
@@ -105,7 +106,7 @@ var event2 = createEvent(
     {
         begin: new Date('2015-11-20T18:00:00'),
         end: new Date('2011-11-20T21:00:00')
-    }
+    },10
 );
 
 createGuest(event2, null, "F. Meier", null, null );
@@ -133,13 +134,14 @@ app.get('/api/events', function(request, response) {
 
 app.post('/api/events', function(request, response) {
     var event = createEvent(
-       request.body.id,
-       request.body.name,
-       request.body.description,
-       request.body.targetGroup,
-       request.body.contributionsDescription,
-       request.body.location,
-       request.body.times
+        request.body.id,
+        request.body.name,
+        request.body.description,
+        request.body.targetGroup,
+        request.body.contributionsDescription,
+        request.body.location,
+        request.body.times,
+        request.body.maximalAmoutOfGuests
    );
    if(event) {
        response.json(event);
@@ -177,7 +179,10 @@ app.post('/api/events/:id', function(request, response) {
 		}
 		if(request.body.times && event.times != request.body.times) {
 			event.times = request.body.times;
-		}		
+		}
+        if(request.body.maximalAmoutOfGuests && event.maximalAmoutOfGuests != request.body.maximalAmoutOfGuests) {
+            event.maximalAmoutOfGuests = request.body.maximalAmoutOfGuests;
+        }
 		response.json(event);
 	} else {
 		response.status(404).send('Event (id '+request.params.id+') not found.')

@@ -4,7 +4,8 @@ define([], function(){
            all: '/api/events',
            byId: '/api/events/{eventId}',
            add: '/api/events',
-           update: '/api/events({eventId}'
+           update: '/api/events/{eventId}',
+           addGuest: '/api/events/{eventId}/guests'
        }
    };
 });

@@ -1,4 +1,4 @@
-define(['app/model/event'], function(Event) {
+define(['app/model/event', 'app/model/guest'], function(Event, Guest) {
     'use strict';
 
     var EventRepository = function($http, Configuration) {
@@ -46,17 +46,34 @@ define(['app/model/event'], function(Event) {
 
         /**
          * Update event
+         * @param int id
          * @param Event event
          */
         this.update = function(id, event, successCallback, errorCallback ){
             $http.post( Configuration.urls.update.replace('{eventId}',id), event)
-            .success(function(){
-                successCallback(Event.createFromDTO(eventDTO));
-            }).
+                .success(function(eventDTO){
+                    successCallback(Event.createFromDTO(eventDTO));
+                }).
             error(function(){
                 errorCallback();
             })
         };
+
+        /**
+         * Add guest to event
+         * @param int id
+         * @param Guest guest
+         */
+        this.addGuestToEvent = function(id, guest, successCallback, errorCallback ){
+            $http.post( Configuration.urls.addGuest.replace('{eventId}',id), guest)
+                .success(function(guestDTO){
+                    successCallback(Guest.createFromDTO(guestDTO));
+                }).
+            error(function(){
+                errorCallback();
+            })
+        };
+
     };
 
     EventRepository.$inject = ['$http', 'Configuration'];

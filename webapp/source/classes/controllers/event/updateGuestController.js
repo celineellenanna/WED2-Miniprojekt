@@ -1,10 +1,10 @@
 /**
- * Created by Céline on 26.11.2015.
+ * Created by Céline on 03.12.2015.
  */
 define(['app/model/event'], function(Event) {
     'use strict';
 
-    var EventUpdateController = function($scope, $location, EventRepository, $routeParams){
+    var GuestUpdateController = function($scope, $location, EventRepository, $routeParams){
         this.scope = $scope;
         this.scope.event = new Event();
         var eventId = $routeParams.eventId;
@@ -16,7 +16,7 @@ define(['app/model/event'], function(Event) {
                 this.scope.event = event;
                 this.scope.event.times.begin = new Date(event.times.begin);
                 this.scope.event.times.end = new Date(event.times.end);
-        }.bind(this),
+            }.bind(this),
             function() {}
         );
 
@@ -30,8 +30,8 @@ define(['app/model/event'], function(Event) {
         }
     };
 
-    EventUpdateController.$inject = ['$scope', '$location', 'EventRepository', '$routeParams'];
+    GuestUpdateController.$inject = ['$scope', '$location', 'EventRepository', '$routeParams'];
 
-    return EventUpdateController;
+    return GuestUpdateController;
 
 });
