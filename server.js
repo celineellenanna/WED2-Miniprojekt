@@ -45,14 +45,14 @@ function findEvent(id) {
     })[0];
 }
 
-function createGuest(event, id, name, contribution, comment){
+function createGuest(event, id, name, contribution, comment, canceled){
     if(event && event.guests) {
         var guest = {
 			id: (id) ? id : ++guestId,
             name : name,
             contribution: contribution,
             comment: comment,
-			canceled: false
+			canceled: canceled
         };
         event.guests.push(guest);
         return guest;
@@ -88,8 +88,8 @@ var event1 = createEvent(
         end: new Date('2011-11-16T03:00:00')
     },20
 );
-createGuest(event1, null, "Michael", "Schoggi-Kuchen", "Bin sicher zu früh" );
-createGuest(event1, null, "Hans", "Hotdog-Cake", null );
+createGuest(event1, null, "Michael", "Schoggi-Kuchen", "Bin sicher zu früh", false );
+createGuest(event1, null, "Hans", "Hotdog-Cake", null, false );
 
 var event2 = createEvent(
     null,
@@ -206,7 +206,8 @@ app.post('/api/events/:id/guests', function(request, response) {
 			request.body.id,
 			request.body.name,
             request.body.contribution,
-            request.body.comment
+            request.body.comment,
+            request.body.canceled
         ));
     } else{
         response.status(404).send('Event (id '+request.params.id+') not found.')
@@ -232,6 +233,7 @@ app.post('/api/events/:eventId/guests/:guestId', function(request, response) {
 	if(event){
 		var guest = findGuest(event, request.params.guestId);
 		if(guest) {
+
 			if(request.body.name && request.body.name != guest.name) {
 				guest.name = request.body.name;
 			}
@@ -241,7 +243,7 @@ app.post('/api/events/:eventId/guests/:guestId', function(request, response) {
 			if(request.body.comment && request.body.comment != guest.comment) {
 				guest.comment = request.body.comment;
 			}
-			if(request.body.canceled && request.body.canceled != guest.canceled) {
+			if( request.body.canceled != guest.canceled) {
 				guest.canceled = request.body.canceled;
 			}
 			
