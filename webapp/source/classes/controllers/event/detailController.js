@@ -2,14 +2,21 @@ define([], function() {
     'use strict';
 
     var EventDetailController = function($scope, $routeParams, EventRepository) {
-        this.scope = $scope;
+        $scope.attendingGuests = 0;
         EventRepository.get(
             { id:$routeParams.eventId },
             function(event) {
-                this.scope.event = event;
+                $scope.event = event;
+                event.guests.forEach(function(guest){
+                    if(!guest.canceled){
+                        $scope.attendingGuests++;
+                    }
+                });
             }.bind(this),
             function() {}
         );
+
+
     }
     EventDetailController.$inject = ['$scope', '$routeParams', 'EventRepository'];
 
