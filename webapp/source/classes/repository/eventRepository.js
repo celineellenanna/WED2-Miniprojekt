@@ -68,10 +68,44 @@ define(['app/model/event', 'app/model/guest'], function(Event, Guest) {
             $http.post( Configuration.urls.addGuest.replace('{eventId}',id), guest)
                 .success(function(guestDTO){
                     successCallback(Guest.createFromDTO(guestDTO));
-                }).
-            error(function(){
-                errorCallback();
+                })
+                .error(function(){
+                    errorCallback();
             })
+        };
+
+        /**
+         * Update guest on event
+         * @param int eventId
+         * @param int guestId
+         * @param Guest guest
+         */
+        this.updateGuest = function(eventId, guestId, guest, successCallback, errorCallback ){
+            // $http.get( Configuration.urls.updateGuest.replace('{eventId}',eventId).replace('{guestId}',guestId))
+            $http.post( '/api/events/' + eventId + '/guests/' +guestId, guest )
+                .success(function() {
+                   successCallback();
+                })
+                .error(function(){
+                    errorCallback();
+                })
+        };
+
+        /**
+         * Get Event by Id
+         * @param int eventId
+         * @param int guestId
+         */
+
+        this.getGuest = function(eventId, guestId, successCallback, errorCallback ){
+           // $http.get( Configuration.urls.updateGuest.replace('{eventId}',eventId).replace('{guestId}',guestId))
+            $http.get( '/api/events/' + eventId + '/guests/' +guestId )
+                .success(function(guestDTO) {
+                    successCallback(Guest.createFromDTO(guestDTO));
+                })
+                .error(function(){
+                    errorCallback();
+                })
         };
 
     };
