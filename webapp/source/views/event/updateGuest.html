@@ -17,13 +17,11 @@
 
     <div class="form-group">
         <label>Komme nicht</label>
-        <select class="form-control" data-ng-model="guest.canceled">
-            <option value="false">false</option>
-            <option value="true">true</option>
-        </select>
+        <input type="checkbox" class="form-control" data-ng-model="guest.canceled" >
+
     </div>
 
     <div class="form-group">
-        <input type="submit" data-ng-click="add(event)" value="Save" />
+        <input type="submit" data-ng-click="update()" value="Save" />
     </div>
 </form>
