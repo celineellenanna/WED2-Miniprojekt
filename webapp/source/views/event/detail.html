@@ -6,10 +6,7 @@
 
 <ul class="eventdetails">
     <p>{{event.description}}</p>
-    <p data-ng-if="event.maximalAmoutOfGuests">
-        <i>Maximal amount of guests:</i>
-        {{event.maximalAmoutOfGuests}}
-    </p>
+
 
     <h3 data-ng-if="event.targetGroup">Target group</h3>
     <p data-ng-if="event.targetGroup">{{event.targetGroup}}</p>
@@ -19,7 +16,7 @@
 
     <h3>Location</h3>
         <p>
-            <i>{{event.location.name}}</i><br />
+            {{event.location.name}}<br />
             {{event.location.street}}<br />
             {{event.location.plz}} {{event.location.city}}
         </p>
@@ -27,23 +24,22 @@
         <h3>Date &amp; time</h3>
         <p>{{event.begin | date:"dd.MM.yy HH:mm"}} - {{event.end | date:"dd.MM.yy HH:mm"}}</p>
 
-        <h3 data-ng-if="event.guests && event.guests.length > 0">Guests</h3>
-        <p data-ng-if="event.guests && event.guests.length > 0">{{ event.guests.length }}</p>
     <form action="{{ '#/events/update/' + event.id }}" method="get">
         <button class="btn btn-default" type="submit">Edit Event</button>
     </form>
-    <h3>All Guests:</h3>
-    <div class="guestlist" data-ng-repeat="guest in event.guests">
+
+    <h2 class="guest-title">Guests:</h2> <div class="counter">{{attendingGuests + ' / ' + event.maximalAmoutOfGuests}}</div>
+    <div class="guestlist" data-ng-repeat="guest in event.guests | orderBy: 'canceled'">
         <p>Name: {{ guest.name }}</p>
         <p>Nimmt mit: {{ guest.contribution }}</p>
         <p>Kommentar: {{ guest.comment }}</p>
-        <p>Komme nicht: {{ guest.canceled }}</p>
+        <p data-ng-show="guest.canceled">Komme nicht: {{ guest.canceled }}</p>
         <form action="{{ '#/events/' + event.id + '/guest/' +  guest.id }}" method="get">
             <button class="btn btn-sm btn-default" type="submit">Update Guest</button>
         </form>
     </div>
 </ul>
 
-    <form action="{{ '#/events/' + event.id + '/guest/new' }}" method="get">
+    <form ng-show="attendingGuests < event.maximalAmoutOfGuests" action="{{ '#/events/' + event.id + '/guest/new' }}" method="get">
         <button class="btn btn-default" type="submit">Add Guest</button>
     </form>
