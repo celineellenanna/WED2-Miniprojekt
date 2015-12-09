@@ -1,7 +1,7 @@
 define([], function() {
     'use strict';
 
-    var EventDetailController = function($scope, $routeParams, EventRepository) {
+    var EventDetailController = function($scope, $routeParams, EventRepository, location) {
         $scope.attendingGuests = 0;
         EventRepository.get(
             { id:$routeParams.eventId },
@@ -16,9 +16,12 @@ define([], function() {
             function() {}
         );
 
-
+        $scope.editEvent = function()
+        {
+            location.path('/events/update/'+$scope.event.id);
+        }
     }
-    EventDetailController.$inject = ['$scope', '$routeParams', 'EventRepository'];
+    EventDetailController.$inject = ['$scope', '$routeParams', 'EventRepository', '$location'];
 
     return EventDetailController;
 });

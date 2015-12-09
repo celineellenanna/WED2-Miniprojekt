@@ -24,9 +24,9 @@
         <h3>Date &amp; time</h3>
         <p>{{event.begin | date:"dd.MM.yy HH:mm"}} - {{event.end | date:"dd.MM.yy HH:mm"}}</p>
 
-    <form action="{{ '#/events/update/' + event.id }}" method="get">
-        <button class="btn btn-default" type="submit">Edit Event</button>
-    </form>
+
+        <button class="btn btn-default" data-ng-click="editEvent()" type="submit">Edit Event</button>
+
 
     <h2 class="guest-title">Guests:</h2> <div class="counter">{{attendingGuests + ' / ' + event.maximalAmoutOfGuests}}</div>
     <div class="guestlist" data-ng-repeat="guest in event.guests | orderBy: 'canceled'">
