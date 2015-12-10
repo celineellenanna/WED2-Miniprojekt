@@ -12,8 +12,11 @@ define(['tests/factories/eventFactory', 'app/model/event', 'app/repository/event
 
                 eventRepository = new EventRepository($http, Configurations);
                 event = EventFactory.createEvent();
-                console.log(event);
+
                 $httpBackend.when('GET', '/api/events').respond({
+                    events: [{id: 1, name: 'Party'},{id: 2, name: 'Concert'}]
+                });
+                $httpBackend.when('POST', '/api/events').respond({
                     events: [{id: 1, name: 'Party'},{id: 2, name: 'Concert'}]
                 });
             }));
@@ -77,10 +80,13 @@ define(['tests/factories/eventFactory', 'app/model/event', 'app/repository/event
                     expect(events[1]).toEqual(jasmine.any(Event));
                 });
             });
-/*
+
             describe('add()', function() {
                 it('inserts element', function() {
-                    var status1 = eventRepository.add(event, function () {}, function(){});
+                    var status1 = eventRepository.add(event, function () {console.log("success"); status1 = true}, function(){console.log("fail");});
+
+                    $httpBackend.flush();
+
                     expect(status1).toBe(true);
                 });
 
@@ -89,9 +95,9 @@ define(['tests/factories/eventFactory', 'app/model/event', 'app/repository/event
 
                     beforeEach(function() {
                         eventRepository.add(event, function () {}, function(){});
-
+                        $httpBackend.flush();
                         size = eventRepository.events.length;
-                        status2 = eventRepository.add(event);
+                        status2 = eventRepository.add(event, function(){},function(){});
                     });
 
                     it('doesn\'t affect repository size', function() {
@@ -102,6 +108,6 @@ define(['tests/factories/eventFactory', 'app/model/event', 'app/repository/event
                     });
                 });
             });
-*/
+
         });
     });

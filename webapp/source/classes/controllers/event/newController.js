@@ -16,15 +16,7 @@ define(['app/model/event'], function(Event) {
             );
         };
     };
-    NewEventController.prototype.createNumberSerie = function(start, step, end, digits) {
-        digits = digits || 3;
-        var serie = [];
-        for(var i = start; i <= end; i+=step) {
-            var digit = (1e10 + i + "").slice(-digits);
-            serie.push(digit);
-        }
-        return serie;
-    };
+
 
     NewEventController.$inject = ['$scope', '$location', 'EventRepository'];
 

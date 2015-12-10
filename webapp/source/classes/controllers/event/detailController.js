@@ -4,7 +4,7 @@ define([], function() {
     var EventDetailController = function($scope, $routeParams, EventRepository, location) {
         $scope.attendingGuests = 0;
         EventRepository.get(
-            { id:$routeParams.eventId },
+            $routeParams.eventId,
             function(event) {
                 $scope.event = event;
                 event.guests.forEach(function(guest){

@@ -24,8 +24,8 @@ define(['app/model/event', 'app/model/guest'], function(Event, Guest) {
          *
          * @param string identifier
          */
-        this.get = function(event, successCallback, errorCallback) {
-            $http.get(Configuration.urls.byId.replace('{eventId}', event.id))
+        this.get = function(eventId, successCallback, errorCallback) {
+            $http.get(Configuration.urls.byId.replace('{eventId}', eventId))
                 .success(function(eventDTO) {
                     successCallback(Event.createFromDTO(eventDTO));
                 })
@@ -37,7 +37,8 @@ define(['app/model/event', 'app/model/guest'], function(Event, Guest) {
          * @param Event event
          */
         this.add = function(event, successCallback, errorCallback) {
-            $http.post(Configuration.urls.add, event)
+           // $http.post(Configuration.urls.add, event)
+            $http.post('/api/events', event)
                 .success(function(eventDTO) {
                     successCallback(Event.createFromDTO(eventDTO));
                 })

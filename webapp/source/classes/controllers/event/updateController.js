@@ -11,7 +11,7 @@ define(['app/model/event'], function(Event) {
 
 
         EventRepository.get(
-            { id:$routeParams.eventId },
+            $routeParams.eventId,
             function(event) {
                 this.scope.event = event;
                 this.scope.event.times.begin = new Date(event.times.begin);

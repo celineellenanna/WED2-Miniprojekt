@@ -73,7 +73,7 @@ postRequest.end();
 var postOptions = {
 	host: 'localhost',
 	port: '8080',
-	path: '/api/events/2/guests/1',
+	path: '/api/events/2/guests/4',
 	method: 'POST',
 	headers: {
 		'Content-Type': 'application/json'
@@ -96,7 +96,7 @@ postRequest.end();
 var postOptions = {
 	host: 'localhost',
 	port: '8080',
-	path: '/api/events/2/guests/1',
+	path: '/api/events/2/guests/4',
 	method: 'POST',
 	headers: {
 		'Content-Type': 'application/json'
