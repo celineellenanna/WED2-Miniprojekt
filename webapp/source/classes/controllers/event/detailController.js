@@ -20,6 +20,10 @@ define([], function() {
         {
             location.path('/events/update/'+$scope.event.id);
         }
+        $scope.addGuest = function()
+        {
+            location.path('/events/' + $scope.event.id + '/guest/new');
+        }
     }
     EventDetailController.$inject = ['$scope', '$routeParams', 'EventRepository', '$location'];
 

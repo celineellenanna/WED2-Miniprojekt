@@ -25,8 +25,8 @@
         <p>{{event.begin | date:"dd.MM.yy HH:mm"}} - {{event.end | date:"dd.MM.yy HH:mm"}}</p>
 
 
-        <button class="btn btn-default" data-ng-click="editEvent()" type="submit">Edit Event</button>
-
+    <button class="btn btn-default" data-ng-click="editEvent()" type="submit">Edit Event</button>
+    <br />
 
     <h2 class="guest-title">Guests:</h2> <div class="counter">{{attendingGuests + ' / ' + event.maximalAmoutOfGuests}}</div>
     <div class="guestlist" data-ng-repeat="guest in event.guests | orderBy: 'canceled'">
@@ -40,6 +40,5 @@
     </div>
 </ul>
 
-    <form ng-show="attendingGuests < event.maximalAmoutOfGuests" action="{{ '#/events/' + event.id + '/guest/new' }}" method="get">
-        <button class="btn btn-default" type="submit">Add Guest</button>
-    </form>
+     <button ng-show="attendingGuests < event.maximalAmoutOfGuests" class="btn btn-default" data-ng-click="addGuest()" type="submit">Add Guest</button>
+
