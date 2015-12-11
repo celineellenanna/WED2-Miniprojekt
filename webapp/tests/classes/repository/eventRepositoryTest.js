@@ -19,6 +19,12 @@ define(['tests/factories/eventFactory', 'app/model/event', 'app/repository/event
                 $httpBackend.when('POST', '/api/events').respond({
                     events: [{id: 1, name: 'Party'},{id: 2, name: 'Concert'}]
                 });
+                $httpBackend.when('GET', '/api/events/1').respond({
+                   id: 1, name: 'Party'
+                });
+                $httpBackend.when('POST', '/api/events/1').respond({
+                    id: 1, name: 'HSR Party'
+                });
             }));
 
             afterEach(function() {
@@ -83,29 +89,31 @@ define(['tests/factories/eventFactory', 'app/model/event', 'app/repository/event
 
             describe('add()', function() {
                 it('inserts element', function() {
-                    var status1 = eventRepository.add(event, function () {console.log("success"); status1 = true}, function(){console.log("fail");});
+                    var status1 = false;
+                    eventRepository.add(event, function () {console.log("success"); status1 = true}, function(){console.log("fail");});
 
                     $httpBackend.flush();
 
                     expect(status1).toBe(true);
                 });
+            });
 
-                describe('same element again', function() {
-                    var size, status2;
+            describe('update()', function(){
+                it('updates an event', function(){
+                    var event1, updatedevent;
+                    eventRepository.get(1,function(eventdto){
+                        event1 = eventdto;
 
-                    beforeEach(function() {
-                        eventRepository.add(event, function () {}, function(){});
-                        $httpBackend.flush();
-                        size = eventRepository.events.length;
-                        status2 = eventRepository.add(event, function(){},function(){});
-                    });
+                    }, function(){});
+                    $httpBackend.flush();
 
-                    it('doesn\'t affect repository size', function() {
-                        expect(eventRepository.events.length).toBe(size);
-                    });
-                    it('returns false', function() {
-                        expect(status2).toBe(false);
-                    });
+                    event1.name = "HSR Party";
+
+                    eventRepository.update(event1.id, event1, function(eventdto){
+                        updatedevent = eventdto;
+                    }, function(){});
+                    $httpBackend.flush();
+                    expect(updatedevent).toEqual(event1);
                 });
             });
 
