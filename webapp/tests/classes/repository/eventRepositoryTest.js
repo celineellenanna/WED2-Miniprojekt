@@ -79,6 +79,7 @@ define(['tests/factories/eventFactory', 'app/model/event', 'app/repository/event
 
                     expect(status1).toBe(true);
                     expect(typeof event2).toBe("object");
+                    expect(event2).toEqual(jasmine.any(Event));
                 });
             });
 
@@ -98,6 +99,7 @@ define(['tests/factories/eventFactory', 'app/model/event', 'app/repository/event
                     $httpBackend.flush();
                     expect(updatedevent.name).toEqual(event1.name);
                     expect(typeof event1).toBe("object");
+                    expect(updatedevent).toEqual(jasmine.any(Event));
                 });
             });
 
