@@ -88,6 +88,9 @@ define(['tests/factories/eventFactory', 'app/model/event', 'app/repository/event
             });
 
             describe('add()', function() {
+                beforeEach(function() {
+                    $httpBackend.expectPOST('/api/events');
+                });
                 it('inserts element', function() {
                     var status1 = false;
                     eventRepository.add(event, function () {console.log("success"); status1 = true}, function(){console.log("fail");});
@@ -99,13 +102,13 @@ define(['tests/factories/eventFactory', 'app/model/event', 'app/repository/event
             });
 
             describe('update()', function(){
+                beforeEach(function() {
+                    $httpBackend.expectPOST('/api/events/1');
+                });
                 it('updates an event', function(){
                     var event1, updatedevent;
-                    eventRepository.get(1,function(eventdto){
-                        event1 = eventdto;
-
-                    }, function(){});
-                    $httpBackend.flush();
+                    $httpBackend.expectP
+                    event1 = EventFactory.createEvent(1);
 
                     event1.name = "HSR Party";
 
@@ -113,7 +116,7 @@ define(['tests/factories/eventFactory', 'app/model/event', 'app/repository/event
                         updatedevent = eventdto;
                     }, function(){});
                     $httpBackend.flush();
-                    expect(updatedevent).toEqual(event1);
+                    expect(updatedevent.name).toEqual(event1.name);
                 });
             });
 
