@@ -32,27 +32,7 @@ define(['tests/factories/eventFactory', 'app/model/event', 'app/repository/event
                 $httpBackend.verifyNoOutstandingRequest();
             });
 
-         /*   describe('get()', function() {
-                beforeEach(function() {
-                    eventRepository.add(event,function(eventDTO){console.log("success");}, function(){console.log("fail");});
 
-                    //eventRepository.all(function(events){console.log(events);},function(){});
-                });
-
-                describe('by object id', function() {
-                    it('returns the object', function() {
-                        expect(eventRepository.get(event, function () {}, function(){})).toEqual(event);
-                    });
-                });
-
-                describe('by inexistent object id', function() {
-                    it('returns null', function() {
-                        expect(eventRepository.get(null, function () {}, function(){})).toEqual(null);
-                        expect(eventRepository.get('abvhf74n6', function () {}, function(){})).toEqual(null);
-                    });
-                });
-            });
-            */
 
             describe('all()', function() {
                 it('returns an Array', function() {
@@ -92,12 +72,13 @@ define(['tests/factories/eventFactory', 'app/model/event', 'app/repository/event
                     $httpBackend.expectPOST('/api/events');
                 });
                 it('inserts element', function() {
-                    var status1 = false;
-                    eventRepository.add(event, function () {console.log("success"); status1 = true}, function(){console.log("fail");});
+                    var status1 = false, event2;
+                    eventRepository.add(event, function (newevent) {console.log("success"); status1 = true; event2 = newevent;}, function(){console.log("fail");});
 
                     $httpBackend.flush();
 
                     expect(status1).toBe(true);
+                    expect(typeof event2).toBe("object");
                 });
             });
 
@@ -107,7 +88,6 @@ define(['tests/factories/eventFactory', 'app/model/event', 'app/repository/event
                 });
                 it('updates an event', function(){
                     var event1, updatedevent;
-                    $httpBackend.expectP
                     event1 = EventFactory.createEvent(1);
 
                     event1.name = "HSR Party";
@@ -117,6 +97,7 @@ define(['tests/factories/eventFactory', 'app/model/event', 'app/repository/event
                     }, function(){});
                     $httpBackend.flush();
                     expect(updatedevent.name).toEqual(event1.name);
+                    expect(typeof event1).toBe("object");
                 });
             });
 
