@@ -69,7 +69,7 @@ define(['tests/factories/eventFactory', 'app/model/event', 'app/repository/event
 
             describe('add()', function() {
                 beforeEach(function() {
-                    $httpBackend.expectPOST('/api/events');
+                    $httpBackend.expectPOST('/api/events', event);
                 });
                 it('inserts element', function() {
                     var status1 = false, event2;
@@ -78,18 +78,15 @@ define(['tests/factories/eventFactory', 'app/model/event', 'app/repository/event
                     $httpBackend.flush();
 
                     expect(status1).toBe(true);
-                    expect(typeof event2).toBe("object");
                     expect(event2).toEqual(jasmine.any(Event));
                 });
             });
 
             describe('update()', function(){
-                beforeEach(function() {
-                    $httpBackend.expectPOST('/api/events/1');
-                });
                 it('updates an event', function(){
                     var event1, updatedevent;
                     event1 = EventFactory.createEvent(1);
+                    $httpBackend.expectPOST('/api/events/1', event1);
 
                     event1.name = "HSR Party";
 
@@ -98,7 +95,6 @@ define(['tests/factories/eventFactory', 'app/model/event', 'app/repository/event
                     }, function(){});
                     $httpBackend.flush();
                     expect(updatedevent.name).toEqual(event1.name);
-                    expect(typeof event1).toBe("object");
                     expect(updatedevent).toEqual(jasmine.any(Event));
                 });
             });
